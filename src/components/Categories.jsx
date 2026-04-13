@@ -46,34 +46,34 @@ export default function Categories({ categories, onChange }) {
   return (
     <div className="flex flex-col gap-3 pb-32">
       {categories.map(cat => (
-        <div key={cat.id} className="bg-white rounded-2xl overflow-hidden shadow-sm">
+        <div key={cat.id} className="bg-white dark:bg-slate-800 rounded-2xl overflow-hidden shadow-sm">
           <div
             className="flex items-center justify-between px-4 py-3 cursor-pointer"
             onClick={() => setExpandedId(expandedId === cat.id ? null : cat.id)}
           >
             <div className="flex items-center gap-2">
               <span className="text-xl">{cat.icon}</span>
-              <span className="font-medium text-gray-800">{cat.name}</span>
+              <span className="font-medium text-gray-800 dark:text-white">{cat.name}</span>
               {cat.subcategories?.length > 0 && (
-                <span className="text-xs text-gray-400">({cat.subcategories.length})</span>
+                <span className="text-xs text-gray-400 dark:text-gray-500">({cat.subcategories.length})</span>
               )}
             </div>
             <div className="flex items-center gap-2">
               <button
                 onClick={e => { e.stopPropagation(); deleteCategory(cat.id) }}
-                className="text-red-400 px-2 py-1 rounded-lg active:bg-red-50 text-sm"
+                className="text-red-400 px-2 py-1 rounded-lg active:bg-red-50 dark:active:bg-red-900/30 text-sm"
               >
                 🗑️
               </button>
-              <span className="text-gray-300">{expandedId === cat.id ? '▲' : '▼'}</span>
+              <span className="text-gray-300 dark:text-gray-600">{expandedId === cat.id ? '▲' : '▼'}</span>
             </div>
           </div>
 
           {expandedId === cat.id && (
-            <div className="border-t border-gray-100 bg-gray-50 px-4 py-3">
+            <div className="border-t border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-700 px-4 py-3">
               {cat.subcategories?.map(sub => (
                 <div key={sub.id} className="flex items-center justify-between py-1">
-                  <span className="text-sm text-gray-700">› {sub.name}</span>
+                  <span className="text-sm text-gray-700 dark:text-gray-200">› {sub.name}</span>
                   <button
                     onClick={() => deleteSubcategory(cat.id, sub.id)}
                     className="text-red-400 text-xs px-2 py-1 rounded-lg"
@@ -91,7 +91,7 @@ export default function Categories({ categories, onChange }) {
                     onChange={e => setNewSubName(e.target.value)}
                     onKeyDown={e => e.key === 'Enter' && addSubcategory(cat.id)}
                     placeholder="Nombre subcategoría"
-                    className="flex-1 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                    className="flex-1 border border-gray-200 dark:border-slate-600 rounded-xl px-3 py-2 text-sm bg-white dark:bg-slate-800 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
                   />
                   <button
                     onClick={() => addSubcategory(cat.id)}
@@ -101,7 +101,7 @@ export default function Categories({ categories, onChange }) {
                   </button>
                   <button
                     onClick={() => { setAddingSubFor(null); setNewSubName('') }}
-                    className="text-gray-400 px-2"
+                    className="text-gray-400 dark:text-gray-500 px-2"
                   >
                     ✕
                   </button>
@@ -120,14 +120,14 @@ export default function Categories({ categories, onChange }) {
       ))}
 
       {addingCat ? (
-        <div className="bg-white rounded-2xl p-4 shadow-sm flex flex-col gap-3">
-          <p className="font-medium text-gray-700">Nueva categoría</p>
+        <div className="bg-white dark:bg-slate-800 rounded-2xl p-4 shadow-sm flex flex-col gap-3">
+          <p className="font-medium text-gray-700 dark:text-gray-200">Nueva categoría</p>
           <div className="flex flex-wrap gap-2">
             {ICONS.map(icon => (
               <button
                 key={icon}
                 onClick={() => setNewCatIcon(icon)}
-                className={`text-2xl p-1 rounded-xl ${newCatIcon === icon ? 'bg-indigo-100 ring-2 ring-indigo-400' : ''}`}
+                className={`text-2xl p-1 rounded-xl ${newCatIcon === icon ? 'bg-indigo-100 dark:bg-indigo-900/50 ring-2 ring-indigo-400' : ''}`}
               >
                 {icon}
               </button>
@@ -139,12 +139,12 @@ export default function Categories({ categories, onChange }) {
             onChange={e => setNewCatName(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && addCategory()}
             placeholder="Nombre categoría"
-            className="border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            className="border border-gray-200 dark:border-slate-600 rounded-xl px-4 py-3 bg-white dark:bg-slate-700 text-gray-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
           />
           <div className="flex gap-2">
             <button
               onClick={() => { setAddingCat(false); setNewCatName('') }}
-              className="flex-1 border border-gray-200 rounded-xl py-3 text-gray-600"
+              className="flex-1 border border-gray-200 dark:border-slate-600 rounded-xl py-3 text-gray-600 dark:text-gray-300"
             >
               Cancelar
             </button>
@@ -159,7 +159,7 @@ export default function Categories({ categories, onChange }) {
       ) : (
         <button
           onClick={() => setAddingCat(true)}
-          className="flex items-center justify-center gap-2 bg-white rounded-2xl py-4 text-indigo-500 font-medium shadow-sm active:bg-indigo-50"
+          className="flex items-center justify-center gap-2 bg-white dark:bg-slate-800 rounded-2xl py-4 text-indigo-500 font-medium shadow-sm active:bg-indigo-50 dark:active:bg-indigo-900/30"
         >
           <span className="text-xl">+</span> Nueva categoría
         </button>
